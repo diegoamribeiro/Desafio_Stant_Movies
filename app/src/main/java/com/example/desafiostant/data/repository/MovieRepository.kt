@@ -11,7 +11,7 @@ object MovieRepository {
     private val movieList = arrayListOf<Movie>()
     private val genreList = arrayListOf<Genre>()
 
-    suspend fun getPopularMovies(): List<Movie> {
+    suspend fun getAllMovies(): List<Movie> {
         val request = api.getPopularMovies()
         if (request.isSuccessful){
             request.body()?.let { result ->

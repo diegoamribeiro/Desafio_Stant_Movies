@@ -1,4 +1,4 @@
-package com.example.desafiostant.fragments.details
+package com.example.desafiostant.view.fragments.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
