@@ -5,5 +5,5 @@ import retrofit2.Response
 
 data class MovieResponse(
     @SerializedName("results")
-    val results: Response<Movie>,
+    val results: List<Movie>,
 )

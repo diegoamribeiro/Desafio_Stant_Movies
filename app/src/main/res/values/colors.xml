@@ -8,4 +8,8 @@
     <color name="black">#171717</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#676767</color>
+    <color name="mostarda">#F3B416</color>
+    <color name="vermilion">#B61E16</color>
+    <color name="black_50_percent_opacity">#60000000</color>
+
 </resources>

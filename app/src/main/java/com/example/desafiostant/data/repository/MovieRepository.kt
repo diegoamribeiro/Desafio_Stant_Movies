@@ -1,25 +1,39 @@
 package com.example.desafiostant.data.repository
 
 import android.util.Log
-import com.example.desafiostant.data.MovieApi
+import com.example.desafiostant.data.model.Genre
 import com.example.desafiostant.data.model.Movie
-import com.example.desafiostant.data.model.MovieResponse
 import com.example.desafiostant.data.remote.RemoteClient
 
-class MovieRepository(private val movieApi: MovieApi) {
+object MovieRepository {
 
+    private val api = RemoteClient.createService
     private val movieList = arrayListOf<Movie>()
+    private val genreList = arrayListOf<Genre>()
 
     suspend fun getPopularMovies(): List<Movie> {
-        val request = RemoteClient.createService(MovieApi::class.java).getPopularMovies().execute()
+        val request = api.getPopularMovies()
         if (request.isSuccessful){
             request.body()?.let { result ->
-                movieList.addAll(result)
+                movieList.addAll(result.results)
             }
         }else{
             Log.d("***List", request.errorBody().toString())
         }
         Log.d("***List", movieList.toString())
         return movieList
+    }
+
+    suspend fun getGenres(): List<Genre> {
+        val request = api.getGenres()
+        if (request.isSuccessful){
+            request.body()?.let { result ->
+                genreList.addAll(result.genres)
+            }
+        }else{
+            Log.d("***List", "request.errorBody().toString()")
+        }
+        Log.d("***List", genreList.toString())
+        return genreList
     }
 }
