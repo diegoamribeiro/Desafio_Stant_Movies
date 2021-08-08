@@ -5,10 +5,13 @@
       <map>
         <entry key="..\:/Users/COELBA/StudioProjects/Desafio_Stant_Movies/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/COELBA/StudioProjects/Desafio_Stant_Movies/app/src/main/res/layout/item_movie.xml" value="0.5" />
+        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/drawable/ic_add.xml" value="0.2111111111111111" />
+        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/drawable/ic_save.xml" value="0.2111111111111111" />
+        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout-v26/fragment_details.xml" value="0.33" />
         <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout/fragment_details.xml" value="0.3625" />
-        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout/item_movie.xml" value="0.3277777777777778" />
+        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout/fragment_details.xml" value="0.6279357231149567" />
+        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/dinok/AndroidStudioProjects/DesafioStant/app/src/main/res/layout/item_movie.xml" value="0.3208092485549133" />
       </map>
     </option>
   </component>

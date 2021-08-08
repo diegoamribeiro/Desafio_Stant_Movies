@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import coil.load
+
 import com.example.desafiostant.databinding.FragmentDetailsBinding
 import com.example.desafiostant.utils.Constants.Companion.POSTER_BASE_URL
 
@@ -24,7 +25,7 @@ class DetailsFragment : Fragment() {
         binding.tvCurrentTitle.text = args.curentItem.title
         binding.tvOverview.text = args.curentItem.overview
         binding.tvCurrentGenre.text = args.curentItem.genre_ids.toString()
-        binding.tvCurrentRelease.text = args.curentItem.release_date
+        binding.tvCurrentRelease.text = args.curentItem.release_date.subSequence(0, 4)
         binding.tvCurrentLanguage.text = args.curentItem.original_language
 
         return binding.root

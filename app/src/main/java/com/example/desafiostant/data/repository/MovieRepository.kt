@@ -9,7 +9,8 @@ object MovieRepository {
 
     private val api = RemoteClient.createService
     private val movieList = arrayListOf<Movie>()
-    private val genreList = arrayListOf<Genre>()
+
+    var name: String = ""
 
     suspend fun getAllMovies(): List<Movie> {
         val request = api.getPopularMovies()
@@ -23,16 +24,17 @@ object MovieRepository {
         return movieList
     }
 
-    suspend fun getGenres(): List<Genre> {
+    suspend fun getGenres(id: Int): String {
         val request = api.getGenres()
         if (request.isSuccessful){
             request.body()?.let { result ->
-                genreList.addAll(result.genres)
+                result.id = id
+                result.name.map {  }
             }
         }else{
-            Log.d("***MovieRepository", "request.errorBody().toString()")
+            Log.d("***MovieRepository", name)
         }
-        Log.d("***MovieRepository", genreList.toString())
-        return genreList
+        Log.d("***MovieRepository", name)
+        return name
     }
 }

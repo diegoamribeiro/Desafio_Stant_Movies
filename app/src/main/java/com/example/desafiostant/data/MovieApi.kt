@@ -21,6 +21,6 @@ interface MovieApi {
     ): Response<MovieResponse>
 
     @GET("genre/movie/list")
-    suspend fun getGenres(@Query("api_key") apiKey: String = API_KEY): Response<GenreResponse>
+    suspend fun getGenres(@Query("api_key") apiKey: String = API_KEY): Response<Genre>
 
 }

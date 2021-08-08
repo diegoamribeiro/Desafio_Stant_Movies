@@ -18,6 +18,7 @@ import com.example.desafiostant.data.viewmodel.HomeViewModel
 import com.example.desafiostant.databinding.FragmentHomeBinding
 import com.example.desafiostant.view.fragments.home.adapters.HomeAdapter
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
@@ -31,20 +32,13 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        binding.rvMovies.setOnClickListener {
-//            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
-//            Log.d("###HomeFragment", "Click")
-//        }
-
-
-
         setupRecyclerView()
-        homeViewModel.getAllMovies.observe(viewLifecycleOwner, {movies ->
-            Log.d("***ViewModel", movies[3].title)
-        })
+        CoroutineScope(Dispatchers.IO).launch {
+            val value = MovieRepository.getGenres(28)
+            Log.d("***getGenres", value)
+        }
 
         return binding.root
     }

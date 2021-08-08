@@ -9,5 +9,8 @@
     <string name="list">List</string>
     <string name="download">Download</string>
     <string name="movie">Movie</string>
+    <string name="action">Action</string>
+    <string name="avengers">Avengers: End game</string>
+    <string name="year">2019</string>
 
 </resources>

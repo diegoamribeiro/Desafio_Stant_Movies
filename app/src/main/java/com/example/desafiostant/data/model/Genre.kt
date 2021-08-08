@@ -1,6 +1,6 @@
 package com.example.desafiostant.data.model
 
 data class Genre(
-    val id: Int,
+    var id: Int,
     val name: String
 )
