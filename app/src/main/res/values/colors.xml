@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="ice">#F1F1F1</color>
     <color name="grey">#676767</color>
+    <color name="light_grey">#BABABA</color>
     <color name="mostarda">#F3B416</color>
     <color name="vermilion">#FF2626</color>
     <color name="black_50_percent_opacity">#80000000</color>
