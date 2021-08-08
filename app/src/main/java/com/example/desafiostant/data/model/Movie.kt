@@ -1,7 +1,10 @@
 package com.example.desafiostant.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Movie(
 
     @SerializedName("id")
@@ -21,6 +24,4 @@ data class Movie(
     val original_language: String,
     @SerializedName("overview")
     val overview: String,
-
-
-)
+): Parcelable

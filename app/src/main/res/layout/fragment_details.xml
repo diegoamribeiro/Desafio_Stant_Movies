@@ -3,14 +3,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
     tools:context=".view.fragments.details.DetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/ivCurrentDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/grey"
-        android:text="Details_fragment" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/back_drop" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivCurrentDetail">
+
+        <TextView
+            android:id="@+id/tvCurrentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/ice"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Black Widow" />
+
+        <TextView
+            android:id="@+id/tvOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:textColor="@color/ice"
+            android:fontFamily="sans-serif-condensed-light"
+            android:textSize="16dp"
+            android:justificationMode="inter_word"
+            tools:text="@string/over"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCurrentTitle" />
+
+        <TextView
+            android:id="@+id/tvLabelGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/genre"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/ice"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvOverview"
+            app:layout_constraintStart_toStartOf="parent"
+             />
+
+        <TextView
+            android:id="@+id/tvCurrentGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:textColor="@color/ice"
+            android:textSize="16dp"
+            android:fontFamily="sans-serif-condensed-light"
+            app:layout_constraintStart_toEndOf="@id/tvLabelGenre"
+            app:layout_constraintTop_toTopOf="@id/tvLabelGenre"
+            app:layout_constraintBottom_toBottomOf="@id/tvLabelGenre"
+            tools:layout_editor_absoluteX="14dp"
+            tools:text="Ação" />
+
+        <TextView
+            android:id="@+id/tvLabelRelease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/release"
+            android:textColor="@color/ice"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelGenre"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvCurrentRelease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ice"
+            android:fontFamily="sans-serif-condensed-light"
+            android:textSize="16dp"
+            app:layout_constraintStart_toEndOf="@id/tvLabelRelease"
+            app:layout_constraintTop_toTopOf="@id/tvLabelRelease"
+            app:layout_constraintBottom_toBottomOf="@id/tvLabelRelease"
+            tools:layout_editor_absoluteX="14dp"
+            tools:text="2021" />
+
+        <TextView
+            android:id="@+id/tvLabelLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/original_language"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/ice"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelRelease"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvCurrentLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ice"
+            android:fontFamily="sans-serif-condensed-light"
+            android:textSize="16dp"
+            app:layout_constraintStart_toEndOf="@id/tvLabelLanguage"
+            app:layout_constraintTop_toTopOf="@id/tvLabelLanguage"
+            app:layout_constraintBottom_toBottomOf="@id/tvLabelLanguage"
+            tools:layout_editor_absoluteX="14dp"
+            tools:text="English" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

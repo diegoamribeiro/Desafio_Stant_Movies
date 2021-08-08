@@ -18,9 +18,8 @@ object MovieRepository {
                 movieList.addAll(result.results)
             }
         }else{
-            Log.d("***List", request.errorBody().toString())
+            Log.d("***MovieRepository", request.errorBody().toString())
         }
-        Log.d("***List", movieList.toString())
         return movieList
     }
 
@@ -31,9 +30,9 @@ object MovieRepository {
                 genreList.addAll(result.genres)
             }
         }else{
-            Log.d("***List", "request.errorBody().toString()")
+            Log.d("***MovieRepository", "request.errorBody().toString()")
         }
-        Log.d("***List", genreList.toString())
+        Log.d("***MovieRepository", genreList.toString())
         return genreList
     }
 }
