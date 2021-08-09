@@ -26,7 +26,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
         holder.binding.apply {
             tvTitle.text = dataList[position].title
             tvYear.text = dataList[position].release_date.subSequence(0,4)
-            tvGenre.text = dataList[position].genre_ids[0].toString()
+            tvGenre.text = "Gênero"
             ivCover.load(POSTER_BASE_URL + dataList[position].poster_path){
                 placeholder(R.drawable.ic_movies)
                     .fallback(R.drawable.ic_broken)
@@ -35,7 +35,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
             holder.itemView.setOnClickListener {
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(dataList[position])
                 holder.itemView.findNavController().navigate(action)
-                Log.d("***HomeAdapter", "${tvTitle.text.toString()}")
+                Log.d("***HomeAdapter", "${tvTitle.text}")
             }
         }
     }

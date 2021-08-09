@@ -1,35 +1,38 @@
 package com.example.desafiostant.data.repository
 
 import android.util.Log
-import com.example.desafiostant.data.model.Genre
+import androidx.lifecycle.MutableLiveData
 import com.example.desafiostant.data.model.Movie
+import com.example.desafiostant.data.model.MovieResponse
 import com.example.desafiostant.data.remote.RemoteClient
+import retrofit2.Response
 
-object MovieRepository {
+object MovieRepository{
 
-    private val api = RemoteClient.createService
-    private val movieList = arrayListOf<Movie>()
+    private val api = RemoteClient.CREATE_SERVICE
+    private lateinit var movieResponse: MovieResponse
 
     var name: String = ""
 
-    suspend fun getAllMovies(): List<Movie> {
-        val request = api.getPopularMovies()
+    suspend fun getAllMovies(page: Int): MovieResponse {
+        val request = api.getPopularMovies(page = page)
         if (request.isSuccessful){
-            request.body()?.let { result ->
-                movieList.addAll(result.results)
+                request.body()?.let { result ->
+                    movieResponse = result
             }
         }else{
             Log.d("***MovieRepository", request.errorBody().toString())
         }
-        return movieList
+        return movieResponse
     }
+
+
 
     suspend fun getGenres(id: Int): String {
         val request = api.getGenres()
         if (request.isSuccessful){
             request.body()?.let { result ->
                 result.id = id
-                result.name.map {  }
             }
         }else{
             Log.d("***MovieRepository", name)

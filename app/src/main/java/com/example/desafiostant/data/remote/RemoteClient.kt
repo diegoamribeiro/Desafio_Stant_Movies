@@ -1,6 +1,6 @@
 package com.example.desafiostant.data.remote
 
-import com.example.desafiostant.data.MovieApi
+import com.example.desafiostant.data.MovieApiService
 import com.example.desafiostant.utils.Constants.Companion.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,7 +14,7 @@ object RemoteClient {
             .build()
     }
 
-    val createService: MovieApi by lazy {
-        retrofit.create(MovieApi::class.java)
+    val CREATE_SERVICE: MovieApiService by lazy {
+        retrofit.create(MovieApiService::class.java)
     }
 }

@@ -5,5 +5,9 @@ import retrofit2.Response
 
 data class MovieResponse(
     @SerializedName("results")
-    val results: List<Movie>,
+    var results: List<Movie>,
+    @SerializedName("page")
+    var page: Int,
+    @SerializedName("total_pages")
+    var totalPages: Int,
 )

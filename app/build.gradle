@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.desafiostant"
-        minSdk 26
+        minSdk 24
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -69,6 +69,9 @@ dependencies {
 
     //Coil https://github.com/coil-kt/coil
     implementation "io.coil-kt:coil:1.1.1"
+
+    //Paging 2
+    implementation("androidx.paging:paging-runtime:$paging_version")
 
 
 }
