@@ -11,7 +11,7 @@ class MovieRepository(
     suspend fun getNowPlaying(pageNumber: Int) =
         RetrofitClient.createService.getNowPlaying()
 
-    fun searchDatabase(searchQuery: String, pageNumber: Int): LiveData<List<Movie>>{
+    fun searchDatabase(searchQuery: String): LiveData<List<Movie>>{
         return movieDatabase.getMovieDao().searchDatabase(searchQuery)
     }
 }
