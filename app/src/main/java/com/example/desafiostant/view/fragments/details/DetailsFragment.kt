@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import coil.load
-
+import com.bumptech.glide.Glide
 import com.example.desafiostant.databinding.FragmentDetailsBinding
 import com.example.desafiostant.utils.Constants.Companion.POSTER_BASE_URL
+import com.example.desafiostant.utils.Utils.Companion.toGenre
 
 class DetailsFragment : Fragment() {
 
-    private val args: DetailsFragmentArgs by navArgs<DetailsFragmentArgs>()
+
+    private val args: DetailsFragmentArgs by navArgs()
+
     private lateinit var binding: FragmentDetailsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,12 +23,14 @@ class DetailsFragment : Fragment() {
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-        binding.ivCurrentDetail.load(POSTER_BASE_URL + args.curentItem.backdrop_path)
-        binding.tvCurrentTitle.text = args.curentItem.title
-        binding.tvOverview.text = args.curentItem.overview
-        binding.tvCurrentGenre.text = args.curentItem.genre_ids.toString()
-        binding.tvCurrentRelease.text = args.curentItem.release_date.subSequence(0, 4)
-        binding.tvCurrentLanguage.text = args.curentItem.original_language
+        Glide.with(binding.ivCurrentDetail)
+            .load(POSTER_BASE_URL + args.currentItem.backdrop_path)
+            .into(binding.ivCurrentDetail)
+        binding.tvCurrentTitle.text = args.currentItem.title
+        binding.tvOverview.text = args.currentItem.overview
+        binding.tvCurrentGenre.text = toGenre(args.currentItem.genre_ids[0])
+        binding.tvCurrentRelease.text = args.currentItem.release_date.subSequence(0, 4)
+        binding.tvCurrentLanguage.text = args.currentItem.original_language
 
         return binding.root
     }

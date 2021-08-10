@@ -1,38 +1,44 @@
 package com.example.desafiostant.data.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.desafiostant.data.model.Movie
+import androidx.lifecycle.*
 import com.example.desafiostant.data.model.MovieResponse
 import com.example.desafiostant.data.repository.MovieRepository
-import com.example.desafiostant.utils.Constants.Companion.FIRST_PAGE
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.example.desafiostant.utils.Resource
+import retrofit2.Response
 
-class HomeViewModel(application: Application): AndroidViewModel(application) {
-
-    private val repository: MovieRepository = MovieRepository
-
-    private var _getAllMovies = MutableLiveData<MovieResponse>()
-    val getAllMovies: LiveData<MovieResponse> get() = _getAllMovies
-
-    private var _currentPage = MutableLiveData<Int>()
-    val currentPage: LiveData<Int> get() = _currentPage
-
+class HomeViewModel(
+    private val repository: MovieRepository
+): ViewModel() {
+    val nowPlaying: MutableLiveData<Resource<MovieResponse>> = MutableLiveData()
+    var currentPage = 1
+    var movieResponse: MovieResponse? = null
 
     init {
-        currentPage
-        repository
-        getAllMovies()
+        getNowPlaying()
     }
 
-    fun getAllMovies(){
-        viewModelScope.launch(Dispatchers.IO) {
-            _getAllMovies.postValue(repository.getAllMovies(1))
+    fun getNowPlaying() = viewModelScope.launch {
+        nowPlaying.postValue(Resource.Loading())
+        val response = repository.getNowPlaying(currentPage)
+        nowPlaying.postValue(handleNowPlayingResponse(response))
+    }
+
+    private fun  handleNowPlayingResponse(response: Response<MovieResponse>): Resource<MovieResponse>{
+        if (response.isSuccessful){
+            response.body()?.let {resultResponse->
+                currentPage++
+                if (movieResponse == null){
+                    movieResponse = resultResponse
+                }else{
+                    val oldState = movieResponse?.results
+                    val newState = resultResponse.results
+                    oldState?.addAll(newState)
+                }
+                return Resource.Success(movieResponse ?: resultResponse)
+            }
         }
+        return Resource.Error(response.message())
     }
 
 

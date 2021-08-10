@@ -2,13 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_nav"
+    android:id="@+id/main_nav"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.desafiostant.view.fragments.home.HomeFragment"
-        android:label="StantFlix"
+        android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
@@ -17,13 +17,13 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.desafiostant.view.fragments.details.DetailsFragment"
-        android:label="Detalhes"
+        android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <action
             android:id="@+id/action_detailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <argument
-            android:name="curentItem"
+            android:name="currentItem"
             app:argType="com.example.desafiostant.data.model.Movie" />
     </fragment>
 </navigation>

@@ -1,27 +1,31 @@
 package com.example.desafiostant.data.model
 
+import android.os.Parcel
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 @Parcelize
+@Entity(tableName = "movies")
 data class Movie(
 
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("title")
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
+    @ColumnInfo(name = "title")
     val title: String,
-    @SerializedName("poster_path")
+    @ColumnInfo(name = "poster_path")
     val poster_path: String,
-    @SerializedName("genre_ids")
-    val genre_ids: List<Int>,
-    @SerializedName("release_date")
+    @ColumnInfo(name = "genre_ids")
+    val genre_ids: ArrayList<Int>,
+    @ColumnInfo(name = "release_date")
     val release_date: String,
-
-    @SerializedName("backdrop_path")
+    @ColumnInfo(name = "backdrop_path")
     val backdrop_path: String,
-    @SerializedName("original_language")
+    @ColumnInfo(name = "original_language")
     val original_language: String,
-    @SerializedName("overview")
+    @ColumnInfo(name = "overview")
     val overview: String,
 ): Parcelable

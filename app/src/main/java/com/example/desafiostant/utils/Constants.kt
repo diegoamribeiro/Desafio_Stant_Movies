@@ -6,7 +6,7 @@ class Constants {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/"
         const val LANG_PTBR = "pt-BR"
-        const val FIRST_PAGE = 1
+        const val QUERY_PAGE_SIZE = 20
 
     }
 }

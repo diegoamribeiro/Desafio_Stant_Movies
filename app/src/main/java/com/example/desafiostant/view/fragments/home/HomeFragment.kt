@@ -6,55 +6,117 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
+import android.widget.AbsListView
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.*
-import com.example.desafiostant.R
+import com.example.desafiostant.data.database.MovieDatabase
 import com.example.desafiostant.data.repository.MovieRepository
+import com.example.desafiostant.data.repository.MovieViewModelProvideFactory
 import com.example.desafiostant.data.viewmodel.HomeViewModel
 import com.example.desafiostant.databinding.FragmentHomeBinding
-import com.example.desafiostant.utils.Constants.Companion.FIRST_PAGE
+import com.example.desafiostant.utils.Constants.Companion.QUERY_PAGE_SIZE
+import com.example.desafiostant.utils.Resource
+import com.example.desafiostant.view.fragments.MoviesActivity
 import com.example.desafiostant.view.fragments.home.adapters.HomeAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private val listAdapter: HomeAdapter by lazy { HomeAdapter() }
-    private val homeViewModel: HomeViewModel by viewModels()
+    lateinit var homeViewModel: HomeViewModel
+    private lateinit var recyclerView: RecyclerView
     private lateinit var binding: FragmentHomeBinding
-    private var currentPage = 1
-    private var totalPages = 0
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        val movieRepository = MovieRepository(MovieDatabase(requireContext()))
+        val viewModelProviderFactory = MovieViewModelProvideFactory(movieRepository)
+        homeViewModel = ViewModelProvider(requireActivity(), viewModelProviderFactory).get(HomeViewModel::class.java)
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        getAllMovies()
         setupRecyclerView()
-
+        homeViewModel.nowPlaying.observe(viewLifecycleOwner,  { response->
+            when(response){
+                is Resource.Success->{
+                    hideProgressBar()
+                    response.data?.let { nowPlaying->
+                        listAdapter.setData(nowPlaying.results.toList())
+                        val totalPages = nowPlaying.totalPages / QUERY_PAGE_SIZE + 2
+                        isLastPage = homeViewModel.currentPage == totalPages
+                    }
+                }
+                is Resource.Error ->{
+                    hideProgressBar()
+                    response.message?.let { message->
+                        Log.d("homeViewModel", message)
+                    }
+                }
+                is Resource.Loading->{
+                    showProgressBar()
+                }
+            }
+        })
         return binding.root
     }
+
+
+    val scrollListener = object : RecyclerView.OnScrollListener(){
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val layoutManager = recyclerView.layoutManager as GridLayoutManager
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+
+            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
+            val isNotAtBeginning = firstVisibleItemPosition >= 0
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
+            val shouldPaginate = isNotLoadingAndNotLastPage && isLastItem && isNotAtBeginning
+                    && isTotalMoreThanVisible && isScrolling
+            if (shouldPaginate){
+                homeViewModel.getNowPlaying()
+                isScrolling = false
+            }else{
+                binding.rvMovies.setPadding(0,0,0,0)
+            }
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                isScrolling = true
+            }
+        }
+    }
+
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = false
 
     private fun setupRecyclerView(){
         recyclerView = binding.rvMovies
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         recyclerView.adapter = listAdapter
+        recyclerView.apply {
+            addOnScrollListener(this@HomeFragment.scrollListener)
+        }
     }
 
-    private fun getAllMovies(){
-        homeViewModel.getAllMovies()
-        homeViewModel.getAllMovies.observe(viewLifecycleOwner, Observer {
-            listAdapter.setData(it.results)
-        })
 
+    private fun hideProgressBar() {
+        binding.paginationProgressBar.visibility = View.INVISIBLE
+        isLoading = false
     }
+
+    private fun showProgressBar() {
+        binding.paginationProgressBar.visibility = View.VISIBLE
+        isLoading = true
+    }
+
 }

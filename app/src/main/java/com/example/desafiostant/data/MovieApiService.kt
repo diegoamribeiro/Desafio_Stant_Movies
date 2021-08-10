@@ -1,5 +1,6 @@
 package com.example.desafiostant.data
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.desafiostant.data.model.Genre
 import com.example.desafiostant.data.model.MovieResponse
@@ -12,13 +13,14 @@ import retrofit2.http.Query
 interface MovieApiService {
 
     @GET("movie/now_playing")
-    suspend fun getPopularMovies(
+    suspend fun getNowPlaying(
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") lang: String = LANG_PTBR,
-        @Query("page") page: Int = 1,
+        @Query("page") page: Int = 1
     ): Response<MovieResponse>
 
     @GET("genre/movie/list")
-    suspend fun getGenres(@Query("api_key") apiKey: String = API_KEY): Response<Genre>
+    suspend fun getGenres(@Query("api_key") apiKey: String = API_KEY,
+                          @Query("language") lang: String = LANG_PTBR): Response<Genre>
 
 }
