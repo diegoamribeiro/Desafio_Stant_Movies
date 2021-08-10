@@ -2,7 +2,7 @@ package com.example.desafiostant.data.repository
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.desafiostant.data.viewmodel.HomeViewModel
+import com.example.desafiostant.view.fragments.viewmodel.HomeViewModel
 
 
 class MovieViewModelProvideFactory(

@@ -2,15 +2,9 @@ package com.example.desafiostant.view.fragments
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.desafiostant.R
-import com.example.desafiostant.data.database.MovieDatabase
-import com.example.desafiostant.data.repository.MovieRepository
-import com.example.desafiostant.data.repository.MovieViewModelProvideFactory
-import com.example.desafiostant.data.viewmodel.HomeViewModel
 
 
 class MoviesActivity : AppCompatActivity() {

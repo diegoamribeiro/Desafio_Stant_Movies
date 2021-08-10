@@ -2,25 +2,24 @@ package com.example.desafiostant.view.fragments.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.*
+import com.example.desafiostant.R
+import androidx.appcompat.widget.SearchView
 import com.example.desafiostant.data.database.MovieDatabase
 import com.example.desafiostant.data.repository.MovieRepository
 import com.example.desafiostant.data.repository.MovieViewModelProvideFactory
-import com.example.desafiostant.data.viewmodel.HomeViewModel
+import com.example.desafiostant.view.fragments.viewmodel.HomeViewModel
 import com.example.desafiostant.databinding.FragmentHomeBinding
 import com.example.desafiostant.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.desafiostant.utils.Resource
-import com.example.desafiostant.view.fragments.MoviesActivity
 import com.example.desafiostant.view.fragments.home.adapters.HomeAdapter
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), SearchView.OnQueryTextListener{
 
     private val listAdapter: HomeAdapter by lazy { HomeAdapter() }
     lateinit var homeViewModel: HomeViewModel
@@ -39,13 +38,21 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setupRecyclerView()
+        observeViewModel()
+        setHasOptionsMenu(true)
+
+        return binding.root
+    }
+
+
+    private fun observeViewModel(){
         homeViewModel.nowPlaying.observe(viewLifecycleOwner,  { response->
             when(response){
                 is Resource.Success->{
                     hideProgressBar()
                     response.data?.let { nowPlaying->
                         listAdapter.setData(nowPlaying.results.toList())
-                        val totalPages = nowPlaying.totalPages / QUERY_PAGE_SIZE + 2
+                        val totalPages = nowPlaying.totalPages / 2
                         isLastPage = homeViewModel.currentPage == totalPages
                     }
                 }
@@ -60,9 +67,7 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-        return binding.root
     }
-
 
     val scrollListener = object : RecyclerView.OnScrollListener(){
 
@@ -117,6 +122,38 @@ class HomeFragment : Fragment() {
     private fun showProgressBar() {
         binding.paginationProgressBar.visibility = View.VISIBLE
         isLoading = true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    private fun searChThroughDatabase(query: String) {
+        val searchQuery = "%$query%"
+        homeViewModel.searchDatabase(searchQuery).observe(this, Observer {list->
+            list?.let {
+                listAdapter.setData(it)
+            }
+        })
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null){
+            searChThroughDatabase(query)
+        }
+
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null){
+            searChThroughDatabase(query)
+        }
+        return true
     }
 
 }

@@ -1,6 +1,7 @@
-package com.example.desafiostant.data.viewmodel
+package com.example.desafiostant.view.fragments.viewmodel
 
 import androidx.lifecycle.*
+import com.example.desafiostant.data.model.Movie
 import com.example.desafiostant.data.model.MovieResponse
 import com.example.desafiostant.data.repository.MovieRepository
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ class HomeViewModel(
 
     init {
         getNowPlaying()
+
     }
 
     fun getNowPlaying() = viewModelScope.launch {
@@ -39,6 +41,10 @@ class HomeViewModel(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun searchDatabase(searchQuery: String): LiveData<List<Movie>> {
+        return repository.searchDatabase(searchQuery)
     }
 
 

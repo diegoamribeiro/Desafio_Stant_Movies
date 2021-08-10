@@ -12,5 +12,6 @@
     <string name="action">Action</string>
     <string name="avengers">Avengers: End game</string>
     <string name="year">2019</string>
+    <string name="search_movie">Search Movie</string>
 
 </resources>
