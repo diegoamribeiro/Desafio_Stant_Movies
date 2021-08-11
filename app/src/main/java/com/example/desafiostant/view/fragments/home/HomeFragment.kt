@@ -141,6 +141,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener{
         })
     }
 
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null){
             searChThroughDatabase(query)

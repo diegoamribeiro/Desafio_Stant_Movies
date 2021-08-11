@@ -29,8 +29,8 @@ class HomeViewModel(
     private fun  handleNowPlayingResponse(response: Response<MovieResponse>): Resource<MovieResponse>{
         if (response.isSuccessful){
             response.body()?.let {resultResponse->
-                currentPage++
                 if (movieResponse == null){
+                    currentPage++
                     movieResponse = resultResponse
                 }else{
                     val oldState = movieResponse?.results
