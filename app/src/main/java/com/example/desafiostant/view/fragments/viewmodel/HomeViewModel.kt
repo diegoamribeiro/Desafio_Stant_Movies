@@ -27,10 +27,11 @@ class HomeViewModel(
     }
 
     private fun  handleNowPlayingResponse(response: Response<MovieResponse>): Resource<MovieResponse>{
+        currentPage++
         if (response.isSuccessful){
+
             response.body()?.let {resultResponse->
                 if (movieResponse == null){
-                    currentPage++
                     movieResponse = resultResponse
                 }else{
                     val oldState = movieResponse?.results
@@ -44,7 +45,7 @@ class HomeViewModel(
     }
 
     fun searchDatabase(searchQuery: String): LiveData<List<Movie>> {
-        return repository.searchDatabase(searchQuery)
+        return repository.searchDatabase(searchQuery, currentPage)
     }
 
 

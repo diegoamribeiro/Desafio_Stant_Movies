@@ -28,7 +28,7 @@ class DetailsFragment : Fragment() {
             .into(binding.ivCurrentDetail)
         binding.tvCurrentTitle.text = args.currentItem.title
         binding.tvOverview.text = args.currentItem.overview
-        binding.tvCurrentGenre.text = toGenre(args.currentItem.genre_ids[0])
+        binding.tvCurrentGenre.text = toGenre(args.currentItem.genre_ids?.get(0))
         binding.tvCurrentRelease.text = args.currentItem.release_date.subSequence(0, 4)
         binding.tvCurrentLanguage.text = args.currentItem.original_language
 

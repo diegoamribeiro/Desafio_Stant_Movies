@@ -19,7 +19,7 @@ data class Movie(
     @ColumnInfo(name = "poster_path")
     val poster_path: String,
     @ColumnInfo(name = "genre_ids")
-    val genre_ids: ArrayList<Int>,
+    val genre_ids: ArrayList<Int>? = null,
     @ColumnInfo(name = "release_date")
     val release_date: String,
     @ColumnInfo(name = "backdrop_path")

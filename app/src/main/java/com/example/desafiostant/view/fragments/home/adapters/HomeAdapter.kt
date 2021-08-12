@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.desafiostant.R
 import com.example.desafiostant.data.model.Movie
 import com.example.desafiostant.databinding.ItemMovieBinding
@@ -28,10 +29,17 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
         holder.binding.apply {
             tvTitle.text = dataList[position].title
             tvYear.text = dataList[position].release_date.subSequence(0,4)
-            tvGenre.text = toGenre(dataList[position].genre_ids[0])
+            if (dataList[position].genre_ids?.isNullOrEmpty() == true){
+                tvGenre.text = "No Gender"
+            }else{
+                tvGenre.text = toGenre(dataList[position].genre_ids?.get(0))
+            }
+
+            Log.d("***gender_ids ->", "${dataList[position].title}")
             Glide.with(ivCover)
                 .load(POSTER_BASE_URL + dataList[position].poster_path)
                 .placeholder(R.drawable.ic_movies)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .fallback(R.drawable.ic_broken)
                 .into(ivCover)
 

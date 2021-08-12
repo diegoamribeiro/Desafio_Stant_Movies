@@ -6,12 +6,12 @@ import com.example.desafiostant.data.model.Movie
 import com.example.desafiostant.data.remote.RetrofitClient
 
 class MovieRepository(
-    val movieDatabase: MovieDatabase
+    private val movieDatabase: MovieDatabase
 ){
     suspend fun getNowPlaying(pageNumber: Int) =
-        RetrofitClient.createService.getNowPlaying()
+        RetrofitClient.createService.getNowPlaying(page = pageNumber)
 
-    fun searchDatabase(searchQuery: String): LiveData<List<Movie>>{
+    fun searchDatabase(searchQuery: String, page: Int): LiveData<List<Movie>>{
         return movieDatabase.getMovieDao().searchDatabase(searchQuery)
     }
 }
