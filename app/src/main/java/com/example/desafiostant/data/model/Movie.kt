@@ -5,10 +5,9 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
-@Parcelize
+
 @Entity(tableName = "movies")
 data class Movie(
 
@@ -28,4 +27,4 @@ data class Movie(
     val original_language: String,
     @ColumnInfo(name = "overview")
     val overview: String,
-): Parcelable
+): Serializable

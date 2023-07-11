@@ -6,9 +6,9 @@ import com.example.desafiostant.view.fragments.viewmodel.HomeViewModel
 
 
 class MovieViewModelProvideFactory(
-    val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository
 ) : ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(movieRepository) as T
     }
 }

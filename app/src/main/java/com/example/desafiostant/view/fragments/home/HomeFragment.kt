@@ -46,27 +46,29 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener{
 
 
     private fun observeViewModel(){
-        homeViewModel.nowPlaying.observe(viewLifecycleOwner,  { response->
-            when(response){
-                is Resource.Success->{
+        homeViewModel.nowPlaying.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
                     hideProgressBar()
-                    response.data?.let { nowPlaying->
+                    response.data?.let { nowPlaying ->
                         listAdapter.setData(nowPlaying.results.toList())
                         val totalPages = nowPlaying.totalPages / 2
                         isLastPage = homeViewModel.currentPage == totalPages
                     }
                 }
-                is Resource.Error ->{
+
+                is Resource.Error -> {
                     hideProgressBar()
-                    response.message?.let { message->
+                    response.message?.let { message ->
                         Log.d("homeViewModel", message)
                     }
                 }
-                is Resource.Loading->{
+
+                is Resource.Loading -> {
                     showProgressBar()
                 }
             }
-        })
+        }
     }
 
     val scrollListener = object : RecyclerView.OnScrollListener(){
